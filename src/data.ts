@@ -42,7 +42,7 @@ const getAllAssets = (n: number) => {
 };
 
 const NUMBER_OF_ASSETS = 200;
-const INTERVAL = 5000;
+const INTERVAL = 2000;
 
 const assets = getAllAssets(NUMBER_OF_ASSETS);
 
@@ -57,7 +57,8 @@ const dataStream = interval(INTERVAL)
             val.price = random >= 0.5 ? val.price + random : val.price - random;
             val.lastUpdate = Date.now();
             return val;
-          })
+          }),
+          toArray()
         )
     )
   );
