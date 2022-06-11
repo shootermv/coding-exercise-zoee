@@ -65,18 +65,28 @@ function App() {
 
           <Row>
             <Col span={24}>
-              {filteredItems.map((item: any) => {
-                return (
-                  <Row key={item.id}>
-                    <Col span={6}>{item.assetName}</Col>
-                    <Col span={6}>{item.type}</Col>
-                    <Col span={6}>
-                      {item.type === "Stock" ? item.market : ""}
-                    </Col>
-                    <Col span={6}>{`${millify(item.price)}`}</Col>
-                  </Row>
-                );
-              })}
+
+             <List
+                itemData={filteredItems}
+                itemCount={filteredItems.length}
+                itemSize={20}
+                height={300}
+                width={1200}
+              >
+                {({data, index, style }: {data: any, index: number, style: any }) => {
+                  return (
+       
+                    <Row style={style}>
+                      <Col span={6}>{data[index].assetName}</Col>
+                      <Col span={6}>{data[index].type}</Col>
+                      <Col span={6}>
+                        {data[index].type === "Stock" ? data[index].market : ""}
+                      </Col>
+                      <Col span={6}>{`${millify(data[index].price)}`}</Col>
+                    </Row>
+                  );
+                }}
+              </List>
             </Col>
           </Row>
         </Card>
