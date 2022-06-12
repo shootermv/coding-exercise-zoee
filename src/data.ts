@@ -42,7 +42,7 @@ const getAllAssets = (n: number) => {
 };
 
 const NUMBER_OF_ASSETS = 200;
-const INTERVAL = 2000;
+const INTERVAL = 200;
 
 const assets = getAllAssets(NUMBER_OF_ASSETS);
 
