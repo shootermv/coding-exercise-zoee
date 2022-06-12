@@ -7,7 +7,7 @@ const { Content, Header, Footer } = Layout;
 function App() {
   return (
     <Layout>
-      <Header>Header</Header>
+      <Header style={{color: '#fff'}}>Header</Header>
       <Content style={{ padding: "30px" }}>
         <DataList/>
       </Content>
