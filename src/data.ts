@@ -1,4 +1,4 @@
-import { interval, from, toArray } from 'rxjs';
+import { interval, from } from 'rxjs';
 import { mergeMap, map, startWith } from 'rxjs/operators';
 
 type AssetType = 'Stock' | 'Currency';
@@ -57,8 +57,7 @@ const dataStream = interval(INTERVAL)
             val.price = random >= 0.5 ? val.price + random : val.price - random;
             val.lastUpdate = Date.now();
             return val;
-          }),
-          toArray()
+          })
         )
     )
   );
