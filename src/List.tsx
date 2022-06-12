@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import "./App.css";
 import { FixedSizeList as List } from "react-window";
-import dataStream$ from "./data";
+import dataStream$, { Asset } from "./data";
 import millify from "millify";
 import { Row, Col, Typography, Card, Input, Select } from "antd";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -16,10 +16,10 @@ const getFilters = () => {
   return parsed;
 };
 export default function DataList() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<Asset[]>([]);
   const [filters, setFilters] = useState<any>(getFilters());
   const filteredItems = useMemo(() => {
-    return items.filter((itm: any) => {
+    return items.filter((itm: Asset) => {
       return (
         (filters.byType === "All" || itm.type === filters.byType) &&
         itm.assetName.includes(filters.name)
@@ -28,8 +28,8 @@ export default function DataList() {
   }, [filters, items]);
   useEffect(() => {
     let counter = 0;
-    let data: any = [];
-    const subscription = dataStream$.subscribe((dataItem: any) => {
+    let data: Asset[] = [];
+    const subscription = dataStream$.subscribe((dataItem: Asset) => {
       counter++;
       if (counter === 400) {
         setItems(data);
@@ -66,7 +66,7 @@ export default function DataList() {
               onChange={(value) => {
                 const newFilters = { ...filters, byType: value };
                 setFilters(newFilters);
-                localStorage.setItem("filters", JSON.stringify(newFilters));
+                localStorage.setItem(FILTERS_KEY, JSON.stringify(newFilters));
               }}
             >
               {["All", "Stock", "Currency"].map((_type) => (
