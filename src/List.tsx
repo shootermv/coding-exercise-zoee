@@ -7,12 +7,15 @@ import { Row, Col, Typography, Card, Input, Select } from "antd";
 import AutoSizer from "react-virtualized-auto-sizer";
 const FILTERS_KEY = 'filters';
 const { Text } = Typography;
-
+interface Filters {
+	name: string; // The asset name, like "AAPL" for Apple stock or "EUR" for Euro Currency
+    byType: 'All' | 'Stock' | 'Currency'
+}
 
 
 const getFilters = () => {
   const raw: any = window?.localStorage.getItem(FILTERS_KEY);
-  const parsed = JSON.parse(raw) || {
+  const parsed: Filters = JSON.parse(raw) || {
     name: "",
     byType: "All",
   };
@@ -20,7 +23,7 @@ const getFilters = () => {
 };
 export default function DataList() {
   const [items, setItems] = useState<Asset[]>([]);
-  const [filters, setFilters] = useState<any>(getFilters());
+  const [filters, setFilters] = useState<Filters>(getFilters());
   const filteredItems = useMemo(() => {
     return items.filter((itm: Asset) => {
       return (
@@ -53,10 +56,10 @@ export default function DataList() {
               value={filters.name}
               placeholder="search asset"
               onChange={(e) => {
-                const newFilters = {
+                const newFilters: Filters = {
                   ...filters,
                   name: e.target.value.toUpperCase(),
-                };
+                } as Filters;
                 setFilters(newFilters);
                 localStorage.setItem(FILTERS_KEY, JSON.stringify(newFilters));
               }}
@@ -67,7 +70,7 @@ export default function DataList() {
               value={filters.byType}
               defaultValue="All"
               onChange={(value) => {
-                const newFilters = { ...filters, byType: value };
+                const newFilters: Filters = { ...filters, byType: value } as Filters;
                 setFilters(newFilters);
                 localStorage.setItem(FILTERS_KEY, JSON.stringify(newFilters));
               }}
