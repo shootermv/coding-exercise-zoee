@@ -1,12 +1,15 @@
 import { useEffect, useState, useMemo } from "react";
 import "./App.css";
 import { FixedSizeList as List } from "react-window";
-import dataStream$, { Asset } from "./data";
+import dataStream$, { Asset, NUMBER_OF_ASSETS } from "./data";
 import millify from "millify";
 import { Row, Col, Typography, Card, Input, Select } from "antd";
 import AutoSizer from "react-virtualized-auto-sizer";
 const FILTERS_KEY = 'filters';
 const { Text } = Typography;
+
+
+
 const getFilters = () => {
   const raw: any = window?.localStorage.getItem(FILTERS_KEY);
   const parsed = JSON.parse(raw) || {
@@ -31,7 +34,7 @@ export default function DataList() {
     let data: Asset[] = [];
     const subscription = dataStream$.subscribe((dataItem: Asset) => {
       counter++;
-      if (counter === 400) {
+      if (counter === NUMBER_OF_ASSETS * 2) {
         setItems(data);
         counter = 0;
         data = [];
