@@ -3,7 +3,7 @@ import { mergeMap, map, startWith } from 'rxjs/operators';
 
 type AssetType = 'Stock' | 'Currency';
 
-interface Asset {
+export interface Asset {
 	id: number;
 	assetName: string; // The asset name, like "AAPL" for Apple stock or "EUR" for Euro Currency
 	price: number; // asset current price (in USD)
@@ -41,7 +41,7 @@ const getAllAssets = (n: number) => {
   return result;
 };
 
-const NUMBER_OF_ASSETS = 200;
+export const NUMBER_OF_ASSETS = 200;
 const INTERVAL = 200;
 
 const assets = getAllAssets(NUMBER_OF_ASSETS);

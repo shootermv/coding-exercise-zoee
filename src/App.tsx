@@ -1,14 +1,10 @@
-import React, { useEffect, useState, useMemo } from "react";
 import "./App.css";
 import DataList from "./List"
 import { Layout } from "antd";
 
-
 const { Content, Header, Footer } = Layout;
 
 function App() {
-
-
   return (
     <Layout>
       <Header>Header</Header>
